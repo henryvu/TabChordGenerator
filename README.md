@@ -23,6 +23,7 @@ Version History
 
 * **V1.0.0**  (9.12.13) First version outputs in console and can handle major and minor chords
 * **V1.1.0**  (9.13.13) Added a text parser to remove any illegal input.  Added a file selection window to specify any file on the computer.  Added swing output though formatting is borked.  Correctly formatted text still appears in console window.
+* **V1.1.1**  (9.15.13) Migrated project from eclipse to IntelliJ.  Also corrected swing output of the tab chords.
 
 To-Do List
 ----------
