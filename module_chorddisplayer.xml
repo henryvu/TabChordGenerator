@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_chorddisplayer" default="compile.module.chorddisplayer">
+  <dirname property="module.chorddisplayer.basedir" file="${ant.file.module_chorddisplayer}"/>
+  
+  <property name="module.jdk.home.chorddisplayer" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.chorddisplayer" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.chorddisplayer" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.chorddisplayer" value="${compiler.args}"/>
+  
+  <property name="chorddisplayer.output.dir" value="${module.chorddisplayer.basedir}/out/production/ChordDisplayer"/>
+  <property name="chorddisplayer.testoutput.dir" value="${module.chorddisplayer.basedir}/out/test/ChordDisplayer"/>
+  
+  <path id="chorddisplayer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="chorddisplayer.module.production.classpath">
+    <path refid="${module.jdk.classpath.chorddisplayer}"/>
+    <path refid="library.jgoodies_forms.classpath"/>
+  </path>
+  
+  <path id="chorddisplayer.runtime.production.module.classpath">
+    <pathelement location="${chorddisplayer.output.dir}"/>
+    <path refid="library.jgoodies_forms.classpath"/>
+  </path>
+  
+  <path id="chorddisplayer.module.classpath">
+    <path refid="${module.jdk.classpath.chorddisplayer}"/>
+    <pathelement location="${chorddisplayer.output.dir}"/>
+    <path refid="library.jgoodies_forms.classpath"/>
+  </path>
+  
+  <path id="chorddisplayer.runtime.module.classpath">
+    <pathelement location="${chorddisplayer.testoutput.dir}"/>
+    <pathelement location="${chorddisplayer.output.dir}"/>
+    <path refid="library.jgoodies_forms.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.chorddisplayer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.chorddisplayer">
+    <patternset refid="excluded.from.module.chorddisplayer"/>
+  </patternset>
+  
+  <path id="chorddisplayer.module.sourcepath">
+    <dirset dir="${module.chorddisplayer.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.chorddisplayer" depends="compile.module.chorddisplayer.production,compile.module.chorddisplayer.tests" description="Compile module ChordDisplayer"/>
+  
+  <target name="compile.module.chorddisplayer.production" depends="register.custom.compilers" description="Compile module ChordDisplayer; production classes">
+    <mkdir dir="${chorddisplayer.output.dir}"/>
+    <javac2 destdir="${chorddisplayer.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.chorddisplayer}/javac">
+      <compilerarg line="${compiler.args.chorddisplayer}"/>
+      <bootclasspath refid="chorddisplayer.module.bootclasspath"/>
+      <classpath refid="chorddisplayer.module.production.classpath"/>
+      <src refid="chorddisplayer.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.chorddisplayer"/>
+    </javac2>
+    
+    <copy todir="${chorddisplayer.output.dir}">
+      <fileset dir="${module.chorddisplayer.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.chorddisplayer.tests" depends="register.custom.compilers,compile.module.chorddisplayer.production" description="compile module ChordDisplayer; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.chorddisplayer" description="cleanup module">
+    <delete dir="${chorddisplayer.output.dir}"/>
+    <delete dir="${chorddisplayer.testoutput.dir}"/>
+  </target>
+</project>
