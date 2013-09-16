@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class mainForm extends JDialog {
     private JPanel contentPane;
@@ -24,6 +21,7 @@ public class mainForm extends JDialog {
     public mainForm() {
         setContentPane(contentPane);
         setModal(true);
+        setTitle("Chord Displayer 1.1.1");
         getRootPane().setDefaultButton(buttonGenerate);
 
         buttonGenerate.addActionListener(new ActionListener() {
@@ -41,6 +39,13 @@ public class mainForm extends JDialog {
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onLoad();
+            }
+        });
+
+        saveButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                onSave();
             }
         });
 
@@ -74,6 +79,7 @@ public class mainForm extends JDialog {
 
             try {
                 songChords = readFileAsString(filePath);
+                JOptionPane.showMessageDialog(null,"File Loaded Successfully");
             }  catch (IOException e1) {
                 e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -83,6 +89,33 @@ public class mainForm extends JDialog {
         }
         parseString();
         textField1.setText(songChords);
+    }
+    private void onSave(){
+        JFrame frame = new JFrame();
+        String filePath;
+        JFileChooser fc = new JFileChooser();
+
+        int returnVal = fc.showOpenDialog(frame);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            filePath = fc.getSelectedFile().getPath();
+
+            PrintWriter out;
+            try {
+                FileWriter fw = new FileWriter(fc.getSelectedFile());
+                fw.write(songChords);
+                fw.flush();
+                JOptionPane.showMessageDialog(null, "File Saved Successfully");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+
+        } else {
+            //
+        }
     }
     private void onGenerate() {
 
