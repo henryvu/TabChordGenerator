@@ -21,6 +21,7 @@ A string of chord letters can be entered into a text file.  Upper case letters a
 Version History
 ---------------
 
+* **V1.1.1**  (9.16.13) Full save functionality implemented
 * **V1.1.0**  (9.16.13) Created a swing interface.  Save button is inactive, but all other components are functioning properly.
 * **V1.0.2**  (9.15.13) Migrated project from eclipse to IntelliJ.  Also corrected swing output of the tab chords.
 * **V1.0.1**  (9.13.13) Added a text parser to remove any illegal input.  Added a file selection window to specify any file on the computer.  Added swing output though formatting is borked.  Correctly formatted text still appears in console window.
@@ -29,6 +30,7 @@ Version History
 To-Do List
 ----------
 
-* ~~Ability to modify chord progression in-program~~ and save back to txt file
+
 * Add sharp and flat chords
+* Add diminished chords
 * Add some sort of song database system.
